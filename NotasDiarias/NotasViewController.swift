@@ -37,7 +37,13 @@ class NotasViewController: UIViewController {
     }
 
     @IBAction func salvar(_ sender: Any) {
-        self.salvarAnotacao()
+        
+        //action para editar anotacao
+        if anotacao != nil {
+           self.editarAnotacao()
+        }else {
+            self.salvarAnotacao()
+        }
         self.navigationController?.popToRootViewController(animated: true)//retorna home
     }
 
@@ -73,8 +79,6 @@ class NotasViewController: UIViewController {
             print("Erro ao salvar anotacao")
         }
     }
-    
-    
-    
+       
     
 }

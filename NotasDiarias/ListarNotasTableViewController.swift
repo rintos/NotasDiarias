@@ -30,6 +30,9 @@ class ListarNotasTableViewController: UITableViewController {
     func recuperarNotas (){
         
         let requisicao = NSFetchRequest<NSFetchRequestResult>(entityName: "Notas")
+        //tabela decrescente
+        let ordenacao = NSSortDescriptor(key: "data", ascending: false)
+        requisicao.sortDescriptors = [ordenacao]
         
         do {
            let notasRecuperadas =  try context.fetch(requisicao)
@@ -89,6 +92,33 @@ class ListarNotasTableViewController: UITableViewController {
         
         return cell
     }
+    
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            
+            let indice = indexPath.row
+            let anotacao = self.anotacoes[indice]
+            
+            self.context.delete(anotacao)
+            self.anotacoes.remove(at: indice)
+            
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            do {
+                try self.context.save()
+            }catch let erro {
+                print("Erro ao remover item \(erro) ")
+            }
+            
+        }
+    }
+    
+    
+    
+    
+    
  
 
     /*
