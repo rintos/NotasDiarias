@@ -60,6 +60,19 @@ class NotasViewController: UIViewController {
         }
     }
     
+    func editarAnotacao(){
+        
+        anotacao.setValue(self.texto.text, forKey: "nota")
+        anotacao.setValue(Date(), forKey: "data")
+        
+        do {
+            try context.save()
+            print("Sucesso ao salvar")
+            
+        } catch  {
+            print("Erro ao salvar anotacao")
+        }
+    }
     
     
     
