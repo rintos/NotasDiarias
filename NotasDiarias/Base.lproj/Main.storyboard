@@ -52,7 +52,7 @@
                     <navigationItem key="navigationItem" title="Notas Diarias" id="pVX-FU-lG9">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="zAr-pL-geI">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="zoN-BA-41g"/>
+                                <segue destination="BYZ-38-t0r" kind="show" identifier="verNota" id="zoN-BA-41g"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -41,14 +41,6 @@ class ListarNotasTableViewController: UITableViewController {
         }
     }
     
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -59,6 +51,24 @@ class ListarNotasTableViewController: UITableViewController {
         return self.anotacoes.count
     }
 
+    //seleciona elemento da celula /get
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        
+        let indice = indexPath.row
+        let anotacao = self.anotacoes[indice]
+        self.performSegue(withIdentifier: "verNota", sender:anotacao )
+    }
+    
+    //acao de proxima tela
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "verNota" {
+            let viewDestino = segue.destination as! NotasViewController
+            viewDestino.anotacao = sender as? NSManagedObject
+        }
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "celula", for: indexPath)
@@ -69,7 +79,7 @@ class ListarNotasTableViewController: UITableViewController {
         
         //formartar data
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.dateFormat = "dd/MM/yyyy hh:mm"
         
         let novaData = dateFormatter.string(from: dataRecuperada as! Date)
         

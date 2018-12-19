@@ -12,6 +12,7 @@ import CoreData
 class NotasViewController: UIViewController {
     
     var context: NSManagedObjectContext!
+    var anotacao: NSManagedObject!
     
     @IBOutlet weak var texto: UITextView!
     
@@ -20,7 +21,14 @@ class NotasViewController: UIViewController {
         
         //teclado carrega automatiamente
         self.texto.becomeFirstResponder()
-        self.texto.text = ""
+       //recebendo dados da tela 1
+        if anotacao != nil {
+            if let dadoRecuperado = anotacao.value(forKey: "nota"){
+                self.texto.text = dadoRecuperado as! String
+            }
+        }else {
+            self.texto.text = ""
+        }
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         context = appDelegate.persistentContainer.viewContext
